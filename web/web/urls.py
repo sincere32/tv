@@ -19,7 +19,9 @@ from tv.views import Live
 
 from django.conf import settings
 from django.conf.urls.static import static
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('', Live.as_view()),
+    path('admin/', admin.site.urls),
+    path('control/', include('tv.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
