@@ -1,12 +1,20 @@
+{% load static %}
 <html>
 
 <head>
     <link href="https://vjs.zencdn.net/7.5.4/video-js.css" rel="stylesheet">
+    <script src='https://vjs.zencdn.net/7.5.4/video.js'></script>
+    <script src="https://code.jquery.com/jquery-3.4.0.min.js"
+        integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+    <link href="{% static 'css/player.css' %}" rel="stylesheet">
+
 </head>
 
 <body>
-    <script src='https://vjs.zencdn.net/7.5.4/video.js'></script>
-
-    <body>
+    <div id="container">
+        <video id="player" class="video-js" controls preload="auto"></video>
+    </div>
+    <script src="{% static 'js/ui.js' %}"></script>
+</body>
 
 </html>
