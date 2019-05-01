@@ -12,15 +12,19 @@
     </div>
     {% endif %}
 
-    <div class="row">
         {% if servers %}
-        {% for server in  servers%}
-        <p>
-            <h5>{{ server}}</h5>
-        </p>
+        {% for server in servers %}
+            <div class="row">
+                    <h4>{{ server }}</h4>
+            </div>
+            <div class="row">
+                IP Address: {{ server.address }}
+            </div>
+            <div class="row">
+                API: http://{{ server.address }}:{{ server.api_port  }}
+            </div>
         {% endfor %}
         {% endif %}
-    </div>
 
     <div class="row">
         <a class="button primary" href="new/">Add server ...</a>

@@ -4,7 +4,7 @@ from .models import Server
 
 
 class Live(TemplateView):
-    template_name = 'tv/player.html'
+    template_name = 'tv/player/player.html'
 
 
 class Control(View):
