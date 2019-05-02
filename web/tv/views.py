@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import TemplateView, View
 from .models import Server
 
@@ -43,3 +43,24 @@ class ServersAdd(View):
                 "message": "Server "+form.data['name']+" added",
             }
             return render(request, "tv/control/servers/index.html", context=context)
+
+class ServersEdit(View):
+
+    def get(self, request, *args, **kwargs):
+        from .forms import ServerForm
+        server = get_object_or_404(Server,pk=self.kwargs["pk"])
+        form = ServerForm(server)
+        context = {
+            "form": form,
+        }
+        return render(request, "tv/control/servers/edit.html", context=context)
+
+    def post(self, request, *args, **kwargs):
+        from .forms import ServerForm
+        form = ServerForm(request.POST)
+        if form.is_valid():
+            form.save()
+            context = {
+                "message": "Server "+form.data['name']+" added",
+            }
+            return render(request, "tv/control/servers/edit.html", context=context)

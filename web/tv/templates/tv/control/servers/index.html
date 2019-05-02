@@ -15,13 +15,13 @@
         {% if servers %}
         {% for server in servers %}
             <div class="row">
-                    <h4>{{ server }}</h4>
+                    <h4><a href="{{ server.pk }}/">{{ server }}</a></h4>
             </div>
             <div class="row">
                 IP Address: {{ server.address }}
             </div>
             <div class="row">
-                API: http://{{ server.address }}:{{ server.api_port  }}
+                API:<a href="http://{{ server.address }}:{{ server.api_port  }}">  http://{{ server.address }}:{{ server.api_port }}</a>
             </div>
         {% endfor %}
         {% endif %}
