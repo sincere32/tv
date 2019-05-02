@@ -5,8 +5,8 @@ class Server(models.Model):
     name = models.CharField(max_length=128)
     address = models.CharField(max_length=128)
     api_port = models.CharField(max_length=5)
-    username = models.CharField(max_length=128)
-    password = models.CharField(max_length=128)
+    username = models.CharField(max_length=128, blank=True, null=True)
+    password = models.CharField(max_length=128, blank=True, null=True)
 
     def __str__(self):
         return self.name

@@ -1,16 +1,20 @@
 {% extends "tv/control/base.html" %}
 
 {% block content %}
-<div class="col">
+<div class="col-6">
     <div class="row">
-        <h3>Add new stream server</h3>
+        <h3>Edit stream server</h3>
     </div>
     <div class="row">
-        <form method="post" action="">
-            {% csrf_token %}
-            {{form.as_p}}
-            <button type="submit" class="primary">Save</button>
-        </form>
+        <div class="card is-full-width">
+            <form id="form" method="post" action="">
+                {% csrf_token %}
+                {{form.as_p}}
+                <a href="#" class="button primary" onclick="$('#form').submit();">Save</a>
+                <a href="delete/" class="button error">Delete</a>
+                <a href="../" class="button dark">Cancel</a>
+            </form>
+        </div>
     </div>
 </div>
 {% endblock content %}

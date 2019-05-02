@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect, reverse, HttpResponseRedirect
 from django.views.generic import TemplateView, View
 from .models import Server
 
@@ -21,7 +21,7 @@ class ServersList(View):
         context = {
             "servers": servers,
         }
-        return render(request, "tv/control/servers/index.html", context=context)
+        return render(request, "tv/control/servers/list.html", context=context)
 
 
 class ServersAdd(View):
@@ -42,14 +42,15 @@ class ServersAdd(View):
             context = {
                 "message": "Server "+form.data['name']+" added",
             }
-            return render(request, "tv/control/servers/index.html", context=context)
+            return render(request, "tv/control/servers/list.html", context=context)
+
 
 class ServersEdit(View):
 
     def get(self, request, *args, **kwargs):
         from .forms import ServerForm
-        server = get_object_or_404(Server,pk=self.kwargs["pk"])
-        form = ServerForm(server)
+        server = get_object_or_404(Server, pk=self.kwargs["pk"])
+        form = ServerForm(instance=server)
         context = {
             "form": form,
         }
@@ -57,10 +58,24 @@ class ServersEdit(View):
 
     def post(self, request, *args, **kwargs):
         from .forms import ServerForm
-        form = ServerForm(request.POST)
+        server = get_object_or_404(Server, pk=self.kwargs['pk'])
+        form = ServerForm(request.POST, instance=server)
         if form.is_valid():
             form.save()
-            context = {
-                "message": "Server "+form.data['name']+" added",
-            }
-            return render(request, "tv/control/servers/edit.html", context=context)
+            return redirect("/control/servers/")
+
+class ServersDelete(View):
+    def get(self, request, *args, **kwargs):
+        from .forms import ServerForm
+        server = get_object_or_404(Server, pk=self.kwargs['pk'])
+        form = ServerForm(request.POST, instance=server)
+        context = {
+            "server":server,
+            "form":form,
+        }
+        return render(request, "tv/control/servers/delete.html", context=context)
+
+    def post(self, request, *args, **kwargs):
+        server = get_object_or_404(Server, pk=self.kwargs['pk'])
+        server.delete()
+        return redirect("/control/servers/")

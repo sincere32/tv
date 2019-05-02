@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from tv.views import Live
 
 from django.conf import settings
@@ -24,4 +24,5 @@ urlpatterns = [
     path('', Live.as_view()),
     path('admin/', admin.site.urls),
     path('control/', include('tv.urls')),
+    re_path(r'^api-auth/', include('rest_framework.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
