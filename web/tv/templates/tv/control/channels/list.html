@@ -28,10 +28,15 @@
                         <div class="col-2 is-marginless">
                             Current Server: <a href="/control/servers/{{ channel.server.pk }}">
                                 {{ channel.server }}</a><br>
-                            Current Status: {{ channel.status }}<br>
+                            Current Status: 
+                            {% if channel.status %}
+                            Running
+                            {% else %}
+                            Stopped
+                            {% endif %}
                         </div>
                         <div class="col is-full-width is-right">
-                            {% if channel.status == "Stopped" %}
+                            {% if not channel.status %}
                             <a href="{{ channel.pk }}/start" class="button primary outline button-small">Start</a>
                             {% else %}
                             <a href="{{ channel.pk }}/restart" class="button primary outline button-small">Restart</a>

@@ -64,8 +64,8 @@ class Client():
         try:
             container = self.__client.containers.get("tv-"+self.__channel.name)
             if container.status == 'running':
-                return "Running"
+                return True
             else:
-                return "Stopped"
+                return False
         except:
             return False
