@@ -9,7 +9,8 @@ class Live(View):
         context = {
             "channels": channels,
         }
-        return render(request,'tv/player/player.html',context=context)
+        return render(request, 'tv/player/player.html', context=context)
+
 
 class Control(View):
     def get(self, request, *args, **kwargs):
@@ -120,7 +121,7 @@ class ServersTest(View):
 class ChannelsList(View):
     def get(self, request, *args, **kwargs):
         channels = Channel.objects.all()
-        
+
         from .modules import docker_control
         for channel in channels:
             client = docker_control.Client(channel)
@@ -174,6 +175,7 @@ class ChannelsEdit(View):
         from .forms import ChannelForm
         channel = get_object_or_404(Channel, pk=self.kwargs["pk"])
         form = ChannelForm(request.POST, request.FILES, instance=channel)
+
         if form.is_valid():
             form.save()
             return redirect(to="../")
@@ -218,5 +220,5 @@ class ChannelsControl(View):
             if action == "restart":
                 client.stop_channel()
                 client.start_channel()
- 
+
         return redirect(to="/control/channels/")
