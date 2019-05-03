@@ -1,0 +1,19 @@
+{% extends "tv/control/base.html" %}
+
+{% block content %}
+<div class="col-6">
+    <div class="row">
+        <h3>Are you sure ?</h3>
+    </div>
+    <div class="row">
+        <div class="card is-full-width">
+            <h4>Delete server {{ server }}</h4>
+            <form id="form" method="post">
+                {% csrf_token %}
+                <a href="#" class="button primary" onclick="$('#form').submit();">Yes</a>
+                <a href="{{ request.META.HTTP_REFERER }}" class="button dark">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

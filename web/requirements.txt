@@ -1,3 +1,5 @@
+pillow
 docker
 djangorestframework
 django-filter
+django-debug-toolbar

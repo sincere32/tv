@@ -1,0 +1,58 @@
+{% extends "tv/control/base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col">
+        <div class="col">
+            <h3>Channels</h3>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-10">
+        {% if channels %}
+        {% for channel in channels %}
+        <div class="row">
+            <div class="col">
+                <div id="channel-{{ channel.pk }}" class="card server-card is-full-width">
+                    <b><a href="{{ channel.pk }}/">{{ channel }}</a></b>
+                    <div class="row">
+                        <div class="col-1 is-marginless">
+                            <img class="logo" src="{{ channel.logo.url }}">
+                        </div>
+                        <div class="col-4 is-marginless">
+                            Source: <a href="{{ channel.source }}" target="_blank"> {{ channel.source }}</a> <br>
+                            Source Type: {{ channel.source_type }}<br>
+                        </div>
+                        <div class="col-2 is-marginless">
+                            Current Server: <a href="/control/servers/{{ channel.server.pk }}">
+                                {{ channel.server }}</a><br>
+                            Current Status: {{ channel.status }}<br>
+                        </div>
+                        <div class="col is-full-width is-right">
+                            {% if not channel.status %}
+                            <a href="{{ channel.pk }}/start" class="button primary outline button-small">Start</a>
+                            {% else %}
+                            <a href="{{ channel.pk }}/restart" class="button primary outline button-small">Restart</a>
+                            <a href="{{ channel.pk }}/stop" class="button primary outline button-small">Stop</a>
+                            {% endif %}
+                            <a href="{{ channel.pk }}/test" class="button dark outline button-small">Test</a>
+                            <a href="{{ channel.pk }}" class="button primary button-small">Edit</a>
+                            <a href="{{ channel.pk }}/delete" class="button error button-small">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+
+    <div class="col-1">
+        <a class="button primary" href="new/">Add channel ...</a>
+    </div>
+</div>
+</div>
+
+{% endblock content %}

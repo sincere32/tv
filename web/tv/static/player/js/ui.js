@@ -1,6 +1,11 @@
-$(document).ready(function() {
-    var video = videojs('player');
-    var url = 'http://localhost:30000/stream/tn/live.m3u8';
-    video.src(url);
-    video.play();
+$(document).ready(function () {
+
+    $(".channel-entry").on("click", function () {
+        var video = videojs('player');
+        var url = $(this).data("video-url");
+        console.log(url);
+        video.src(url);
+        video.play();
+    });
+
 });

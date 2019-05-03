@@ -1,0 +1,25 @@
+{% extends "tv/control/base.html" %}
+
+{% block content %}
+<div class="col-6">
+    <div class="row">
+        <div class="col">
+            <h3>Test stream server {{ server }}</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="card is-full-width">
+            {% if info %}
+            <b>ID:</b> {{ info.ID }} <br>
+            <b>Containers running:</b> {{ info.ContainersRunning }} <br>
+            <b>Images:</b> {{ info.Images }} <br>
+            <b>System Time:</b> {{ info.SystemTime }} <br>
+            <b>Operating System:</b> {{ info.OperatingSystem }} <br>
+            {% else %}
+            {{ message }} <br>
+            {% endif %}
+            <a href="../" class="button dark">Back</a>
+        </div>
+    </div>
+</div>
+{% endblock content %}

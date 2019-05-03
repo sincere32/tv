@@ -1,8 +1,41 @@
 body {
+    font-family: Arial Rounded MT Bold,Helvetica Rounded,Arial,sans-serif; 
     margin: 0;
 }
+
 #player {
     height: 100%;
     min-width: 100%;
     min-height: 100%;
+}
+
+#channel-list {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    min-width: 20%;
+    min-height: 100%;
+    background-color: rgba(255, 255, 255, 0.2);
+    z-index: 1000;
+}
+
+.channel-entry {
+    background-color: rgba(255, 255, 255, 0.3);
+    margin: 8%;
+    padding: 2%;
+    color: white;
+    vertical-align: middle;
+}
+
+.channel-name {
+    font-size: 1.5em;
+    margin-left: 1em;
+}
+
+.channel-logo {
+    width: 4.5em;
+    max-width:  4.5em;
+    background-color: white;
+    vertical-align: middle;
 }

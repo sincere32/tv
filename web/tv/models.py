@@ -1,5 +1,9 @@
 from django.db import models
 
+SOURCE_TYPES = [
+    ('Generic', 'Generic'),
+    ('YouTube', 'YouTube')
+]
 
 class Server(models.Model):
     name = models.CharField(max_length=128)
@@ -12,9 +16,12 @@ class Server(models.Model):
         return self.name
 
 
-class Stream(models.Model):
+class Channel(models.Model):
     name = models.CharField(max_length=128)
     source = models.CharField(max_length=2048)
+    source_type = models.CharField(
+        max_length=128, default='Generic', choices=SOURCE_TYPES)
+    logo = models.ImageField(upload_to="logos", null=True)
     server = models.ForeignKey(Server, on_delete=models.PROTECT)
 
     def __str__(self):
