@@ -31,7 +31,7 @@
                             Current Status: {{ channel.status }}<br>
                         </div>
                         <div class="col is-full-width is-right">
-                            {% if not channel.status %}
+                            {% if channel.status == "Stopped" %}
                             <a href="{{ channel.pk }}/start" class="button primary outline button-small">Start</a>
                             {% else %}
                             <a href="{{ channel.pk }}/restart" class="button primary outline button-small">Restart</a>
