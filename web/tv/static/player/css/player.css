@@ -1,5 +1,5 @@
 body {
-    font-family: Arial Rounded MT Bold,Helvetica Rounded,Arial,sans-serif; 
+    font-family: Arial Rounded MT Bold, Helvetica Rounded, Arial, sans-serif;
     margin: 0;
 }
 
@@ -7,6 +7,8 @@ body {
     height: 100%;
     min-width: 100%;
     min-height: 100%;
+    max-width: 100%;
+    max-height: 100%;
 }
 
 #channel-list {
@@ -16,26 +18,49 @@ body {
     height: 100%;
     min-width: 20%;
     min-height: 100%;
-    background-color: rgba(255, 255, 255, 0.2);
+    max-height: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    background-color: rgba(255, 255, 255, 0.4);
     z-index: 1000;
 }
 
 .channel-entry {
-    background-color: rgba(255, 255, 255, 0.3);
-    margin: 8%;
-    padding: 2%;
+    background-color: rgba(0, 0, 0, 0.5);
+    margin: 2%;
+    padding: 5%;
     color: white;
     vertical-align: middle;
 }
 
 .channel-name {
-    font-size: 1.5em;
     margin-left: 1em;
+    font-size: 1.2em;
+    text-shadow: 4px 4px 4px #000000;
 }
 
 .channel-logo {
-    width: 4.5em;
-    max-width:  4.5em;
+    width: 3em;
+    max-width: 3em;
     background-color: white;
     vertical-align: middle;
+}
+
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background:rgba(255, 255, 255, 0.4);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #b30000;
 }
