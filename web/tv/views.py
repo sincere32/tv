@@ -12,7 +12,8 @@ class Live(View):
         }
         return render(request, 'tv/player/player.html', context=context)
 
-class ServersList(LoginRequiredMixin,View):
+
+class ServersList(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         servers = Server.objects.all()
         context = {
@@ -21,7 +22,7 @@ class ServersList(LoginRequiredMixin,View):
         return render(request, "tv/control/servers/list.html", context=context)
 
 
-class ServersAdd(LoginRequiredMixin,View):
+class ServersAdd(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
         from .forms import ServerForm
@@ -47,7 +48,7 @@ class ServersAdd(LoginRequiredMixin,View):
             return render(request, "tv/control/servers/edit.html", context=context)
 
 
-class ServersEdit(LoginRequiredMixin,View):
+class ServersEdit(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
         from .forms import ServerForm
@@ -72,7 +73,7 @@ class ServersEdit(LoginRequiredMixin,View):
             return render(request, "tv/control/servers/edit.html", context=context)
 
 
-class ServersDelete(LoginRequiredMixin,View):
+class ServersDelete(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         from .forms import ServerForm
         server = get_object_or_404(Server, pk=self.kwargs['pk'])
@@ -89,7 +90,7 @@ class ServersDelete(LoginRequiredMixin,View):
         return redirect(to="/control/servers/")
 
 
-class ServersTest(LoginRequiredMixin,View):
+class ServersTest(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         server = get_object_or_404(Server, pk=self.kwargs['pk'])
         import docker
@@ -110,22 +111,21 @@ class ServersTest(LoginRequiredMixin,View):
             return render(request, "tv/control/servers/test.html", context=context)
 
 
-class ChannelsList(LoginRequiredMixin,View):
+class ChannelsList(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         channels = Channel.objects.all()
 
         from .modules import docker_control
         for channel in channels:
             client = docker_control.Client(channel)
-            status = client.status_channel()
-            channel.status = status
+            channel.container = client.get_container()
         context = {
             "channels": channels,
         }
         return render(request, "tv/control/channels/list.html", context=context)
 
 
-class ChannelsAdd(LoginRequiredMixin,View):
+class ChannelsAdd(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
         from .forms import ChannelForm
@@ -152,7 +152,7 @@ class ChannelsAdd(LoginRequiredMixin,View):
             return render(request, "tv/control/channels/edit.html", context=context)
 
 
-class ChannelsEdit(LoginRequiredMixin,View):
+class ChannelsEdit(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
         from .forms import ChannelForm
@@ -178,7 +178,7 @@ class ChannelsEdit(LoginRequiredMixin,View):
             return render(request, "tv/control/channels/edit.html", context=context)
 
 
-class ChannelsDelete(LoginRequiredMixin,View):
+class ChannelsDelete(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         from .forms import ChannelForm
         channel = get_object_or_404(Channel, pk=self.kwargs["pk"])
@@ -195,7 +195,7 @@ class ChannelsDelete(LoginRequiredMixin,View):
         return redirect(to="/control/channels/")
 
 
-class ChannelsControl(LoginRequiredMixin,View):
+class ChannelsControl(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         channel = get_object_or_404(Channel, pk=self.kwargs["pk"])
         action = self.kwargs["action"]

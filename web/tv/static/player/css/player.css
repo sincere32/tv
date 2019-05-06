@@ -26,6 +26,7 @@ body {
 }
 
 .channel-entry {
+    cursor: grab;
     background-color: rgba(0, 0, 0, 0.5);
     margin: 2%;
     padding: 5%;

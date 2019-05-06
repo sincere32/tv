@@ -22,6 +22,8 @@ class Client():
         container_environment = {
         }
         container_environment["NAME"] = self.__channel
+        container_environment['VCODEC'] = self.__channel.codec
+
         container_volume = {
             "stream": {
                 "bind": "/stream",
@@ -30,8 +32,7 @@ class Client():
         }
 
         if self.__channel.source_type == 'YouTube':
-            container_environment['INPUT'] = "$(youtube-dl -g " + \
-                self.__channel.source+")"
+            container_environment['YOUTUBE_DL'] = self.__channel.source
         else:
             container_environment['INPUT'] = self.__channel.source
 
@@ -60,13 +61,10 @@ class Client():
         except:
             return False
 
-    def status_channel(self):
+    def get_container(self):
         try:
             container = self.__client.containers.get("tv-"+self.__channel.name)
-            if container.status == 'running':
-                return True
-            else:
-                return False
+            return container
         except:
             return False
 
