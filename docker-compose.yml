@@ -1,0 +1,16 @@
+version: '3'
+services:
+  web:
+    build: ./web
+    image: tv-web:latest
+    volumes:
+      - tv-stream:/tmp/stream
+      - media:/django/media
+    hostname: tv-web
+  nginx:
+    build: ./nginx
+    image: tv-nginx:latest
+    volumes:
+      - tv-stream:/tmp/stream
+      - media:/tmp/media
+      hostname: tv-nginx
