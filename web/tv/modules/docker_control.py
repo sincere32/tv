@@ -25,7 +25,7 @@ class Client():
         container_environment['VCODEC'] = self.__channel.codec
 
         container_volume = {
-            "stream": {
+            "tv-stream": {
                 "bind": "/stream",
                 "mode": "rw",
             }
