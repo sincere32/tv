@@ -1,0 +1,19 @@
+{% extends "tv/control/base.html" %}
+
+{% block content %}
+<div class="col-6">
+    <div class="row">
+        <h3>Login to TV Control</h3>
+    </div>
+    <div class="row">
+        <div class="card is-full-width">
+            <form id="form" method="post" action="" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{form.as_p}}
+                <a href="#" class="button primary" onclick="$('#form').submit();">Login</a>
+                <a href="../" class="button dark">Cancel</a></form>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock content %}

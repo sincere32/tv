@@ -21,7 +21,7 @@ body {
     max-height: 100%;
     overflow-x: hidden;
     overflow-y: scroll;
-    background-color: rgba(255, 255, 255, 0.4);
+    background-color: rgba(255, 255, 255, 0.2);
     z-index: 1000;
 }
 
@@ -31,6 +31,11 @@ body {
     padding: 5%;
     color: white;
     vertical-align: middle;
+    border-radius: 10px;
+}
+
+.channel-entry:hover {
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
 .channel-name {

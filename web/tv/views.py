@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
 from django.views.generic import TemplateView, View
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Server, Channel
 
 
@@ -11,16 +12,7 @@ class Live(View):
         }
         return render(request, 'tv/player/player.html', context=context)
 
-
-class Control(View):
-    def get(self, request, *args, **kwargs):
-        return render(request, "tv/control/base.html")
-
-    def post(self, request, *args, **kwargs):
-        return render(request, "tv/control/base.html")
-
-
-class ServersList(View):
+class ServersList(LoginRequiredMixin,View):
     def get(self, request, *args, **kwargs):
         servers = Server.objects.all()
         context = {
@@ -29,7 +21,7 @@ class ServersList(View):
         return render(request, "tv/control/servers/list.html", context=context)
 
 
-class ServersAdd(View):
+class ServersAdd(LoginRequiredMixin,View):
 
     def get(self, request, *args, **kwargs):
         from .forms import ServerForm
@@ -55,7 +47,7 @@ class ServersAdd(View):
             return render(request, "tv/control/servers/edit.html", context=context)
 
 
-class ServersEdit(View):
+class ServersEdit(LoginRequiredMixin,View):
 
     def get(self, request, *args, **kwargs):
         from .forms import ServerForm
@@ -80,7 +72,7 @@ class ServersEdit(View):
             return render(request, "tv/control/servers/edit.html", context=context)
 
 
-class ServersDelete(View):
+class ServersDelete(LoginRequiredMixin,View):
     def get(self, request, *args, **kwargs):
         from .forms import ServerForm
         server = get_object_or_404(Server, pk=self.kwargs['pk'])
@@ -97,7 +89,7 @@ class ServersDelete(View):
         return redirect(to="/control/servers/")
 
 
-class ServersTest(View):
+class ServersTest(LoginRequiredMixin,View):
     def get(self, request, *args, **kwargs):
         server = get_object_or_404(Server, pk=self.kwargs['pk'])
         import docker
@@ -118,7 +110,7 @@ class ServersTest(View):
             return render(request, "tv/control/servers/test.html", context=context)
 
 
-class ChannelsList(View):
+class ChannelsList(LoginRequiredMixin,View):
     def get(self, request, *args, **kwargs):
         channels = Channel.objects.all()
 
@@ -133,7 +125,7 @@ class ChannelsList(View):
         return render(request, "tv/control/channels/list.html", context=context)
 
 
-class ChannelsAdd(View):
+class ChannelsAdd(LoginRequiredMixin,View):
 
     def get(self, request, *args, **kwargs):
         from .forms import ChannelForm
@@ -160,7 +152,7 @@ class ChannelsAdd(View):
             return render(request, "tv/control/channels/edit.html", context=context)
 
 
-class ChannelsEdit(View):
+class ChannelsEdit(LoginRequiredMixin,View):
 
     def get(self, request, *args, **kwargs):
         from .forms import ChannelForm
@@ -186,7 +178,7 @@ class ChannelsEdit(View):
             return render(request, "tv/control/channels/edit.html", context=context)
 
 
-class ChannelsDelete(View):
+class ChannelsDelete(LoginRequiredMixin,View):
     def get(self, request, *args, **kwargs):
         from .forms import ChannelForm
         channel = get_object_or_404(Channel, pk=self.kwargs["pk"])
@@ -203,7 +195,7 @@ class ChannelsDelete(View):
         return redirect(to="/control/channels/")
 
 
-class ChannelsControl(View):
+class ChannelsControl(LoginRequiredMixin,View):
     def get(self, request, *args, **kwargs):
         channel = get_object_or_404(Channel, pk=self.kwargs["pk"])
         action = self.kwargs["action"]

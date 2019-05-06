@@ -131,3 +131,7 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ]
 }
+
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/control/servers/'
+LOGOUT_REDIRECT_URL = '/login/'
