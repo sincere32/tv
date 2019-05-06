@@ -1,11 +1,13 @@
 $(document).ready(function () {
 
     is_menu_moving = false;
+    beat = true;
 
     function menu_width() {
         var menu_width = $("#channel-list").width();
         return menu_width;
     }
+
     function hide_menu() {
         is_menu_moving = true;
         var width = menu_width();
@@ -20,6 +22,7 @@ $(document).ready(function () {
             }
         )
     }
+
     function show_menu() {
         is_menu_moving = true;
         $("#channel-list").animate(
@@ -33,21 +36,14 @@ $(document).ready(function () {
         )
     }
 
-    $(".channel-entry").on("click", function () {
-        var video = videojs('player');
-        var url = $(this).data("video-url").replace(" ", "-");
-        console.log(url);
-        video.src(url);
-        video.play();
-    });
     $(document).mousemove(function (e) {
         var width = menu_width();
         var x = e.pageX;
         var y = e.pageY;
         if (!is_menu_moving) {
-            if (x <= 1.1 * (width)) {
+            if (x <= 0.3 * (width)) {
                 show_menu();
-            } else {
+            } else if (x > 1.2 * (width)) {
                 hide_menu();
             }
         }
@@ -55,4 +51,14 @@ $(document).ready(function () {
     });
 
     hide_menu();
+
+    $(".channel-entry").on("click", function () {
+        var video = videojs('player');
+        var url = $(this).data("video-url").replace(" ", "-");
+        console.log(url);
+        video.src(url);
+        video.play();
+    });
+
+
 });
