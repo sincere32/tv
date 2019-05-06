@@ -4,13 +4,22 @@ services:
     build: ./web
     image: tv-web:latest
     volumes:
-      - media:/django/media
+      - tv-streams:/tmp/stream
+      - tv-web-media:/django/media
     hostname: tv-web
+    networks:
+      - tv
   nginx:
     build: ./nginx
     image: tv-nginx:latest
+    ports:
+      - "30000:80"
     volumes:
-      - tv-stream:/tmp/stream
-      - media:/tmp/media
+      - tv-streams:/tmp/stream
+      - tv-web-media:/tmp/media
     hostname: tv-nginx
-  reflector:
+    networks:
+      - tv
+volumes:
+  tv-web-media:
+  tv-streams:
