@@ -30,7 +30,8 @@ class Client():
         }
 
         if self.__channel.source_type == 'YouTube':
-            container_environment['YOUTUBE'] = self.__channel.source
+            container_environment['INPUT'] = "$(youtube-dl -g " + \
+                self.__channel.source+")"
         else:
             container_environment['INPUT'] = self.__channel.source
 
