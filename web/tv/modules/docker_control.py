@@ -30,8 +30,8 @@ class Client():
         }
 
         if self.__channel.source_type == 'YouTube':
-            container_environment['INPUT'] = "$(youtube-dl -g " + \
-                self.__channel.source+")"
+            container_environment['INPUT'] = "$(youtube-dl -g '" + \
+                self.__channel.source+"')"
         else:
             container_environment['INPUT'] = self.__channel.source
 
@@ -68,5 +68,14 @@ class Client():
                 return True
             else:
                 return False
+        except:
+            return False
+
+    def recreate_channel(self):
+        try:
+            container = self.__client.containers.get("tv-"+self.__channel.name)
+            container.remove()
+            start_channel(self)
+            return True
         except:
             return False
