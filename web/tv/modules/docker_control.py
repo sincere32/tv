@@ -45,7 +45,6 @@ class Client():
                     name=self.__container_name,
                     image='tv/reflector',
                     environment=container_environment,
-                    restart_policy={"name": 'always'},
                     volumes=container_volume,
                 )
             except:
@@ -74,8 +73,9 @@ class Client():
     def recreate_channel(self):
         try:
             container = self.__client.containers.get("tv-"+self.__channel.name)
-            container.remove()
-            start_channel(self)
+            container.remove(force=True)
+            self.start_channel()
             return True
         except:
+            self.start_channel()
             return False

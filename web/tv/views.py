@@ -212,5 +212,7 @@ class ChannelsControl(LoginRequiredMixin,View):
             if action == "restart":
                 client.stop_channel()
                 client.start_channel()
+            if action == "recreate":
+                client.recreate_channel()
 
         return redirect(to="/control/channels/")
