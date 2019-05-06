@@ -3,7 +3,7 @@ rm -rf /stream/${NAME}/*
 
 /usr/bin/ffmpeg \
 	-re \
-	-i ${INPUT} \
+	-i "'"${INPUT}"'" \
 	-bufsize 5000k \
 	-vcodec copy -b:v 700k \
 	-acodec copy \
