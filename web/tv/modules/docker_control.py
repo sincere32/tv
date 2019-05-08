@@ -36,6 +36,8 @@ class Client():
         else:
             container_environment['INPUT'] = self.__channel.source
 
+        restart_policy = {"Name": "on-failure", "MaximumRetryCount": 5}
+        
         try:
             container = self.__client.containers.get(self.__container_name)
             container.remove(force=True)
@@ -45,6 +47,7 @@ class Client():
                     detach=True,
                     name=self.__container_name,
                     image='tv/reflector',
+                    restart_policy=restart_policy,
                     environment=container_environment,
                     volumes=container_volume,
                 )
