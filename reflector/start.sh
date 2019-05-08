@@ -1,5 +1,5 @@
+rm -rf /stream/${NAME}
 mkdir -p /stream/${NAME}
-rm -rf /stream/${NAME}/*
 
 if ! [ -z $YOUTUBE_DL ]; then
 	echo "Using youtube-dl extractor for " ${YOUTUBE_DL}
@@ -21,3 +21,5 @@ echo ""
 	-acodec copy \
 	-hls_flags delete_segments \
 	/stream/${NAME}/live.m3u8
+
+rm -rf /stream/${NAME}
