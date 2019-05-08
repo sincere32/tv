@@ -1,3 +1,5 @@
+import docker
+
 class Client():
 
     @property
@@ -9,7 +11,6 @@ class Client():
         self.__channel = channel
         self.__channel.name = self.__channel.name.replace(" ", "-")
         self.__container_name = "tv-"+self.__channel.name
-        import docker
         docker_url = "http://"+channel.server.address+":"+channel.server.api_port
         try:
             self.__client = docker.DockerClient(base_url=docker_url)
@@ -47,7 +48,6 @@ class Client():
                     detach=True,
                     name=self.__container_name,
                     image='tv/reflector',
-                    restart_policy=restart_policy,
                     environment=container_environment,
                     volumes=container_volume,
                 )
