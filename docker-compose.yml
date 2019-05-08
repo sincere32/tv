@@ -20,6 +20,16 @@ services:
     hostname: tv-nginx
     networks:
       - tv
+  db:
+    image: postgres
+    volumes:
+      - tv-database:/var/lib/postgresql/data
+networks:
+  tv:
 volumes:
   tv-web-media:
+    external: true
   tv-streams:
+    external: true
+  tv-database:
+    external: true
