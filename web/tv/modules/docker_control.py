@@ -37,7 +37,7 @@ class Client():
         else:
             container_environment['INPUT'] = self.__channel.source
 
-        restart_policy = {"Name": "on-failure", "MaximumRetryCount": 5}
+        restart_policy = {"Name": "always"}
         
         try:
             container = self.__client.containers.get(self.__container_name)
