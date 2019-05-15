@@ -3,4 +3,5 @@ docker
 djangorestframework
 django-filter
 django-debug-toolbar
+psycopg2
 gunicorn
