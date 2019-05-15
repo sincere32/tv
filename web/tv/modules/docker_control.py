@@ -48,6 +48,7 @@ class Client():
                     detach=True,
                     name=self.__container_name,
                     image='tv/reflector',
+                    restart_policy=restart_policy,
                     environment=container_environment,
                     volumes=container_volume,
                 )
