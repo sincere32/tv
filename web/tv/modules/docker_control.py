@@ -64,8 +64,6 @@ class Client():
                     environment=container_environment,
                     volumes=container_volume,
                 )
-                self.__channel.container_id = container.id
-                self.__channel.save()
             except:
                 container = False
 
@@ -76,8 +74,6 @@ class Client():
             container = get_container(self.__container_id)
             if container:
                 container.stop()
-                self.__channel.container_id = None
-                self.__channel.save()
                 return True
         except:
             return False
