@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
 from django.views.generic import TemplateView, View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Server, Channel
+from .modules import docker_control
 
 
 class Live(View):
@@ -200,10 +201,9 @@ class ChannelsControl(LoginRequiredMixin, View):
         channel = get_object_or_404(Channel, pk=self.kwargs["pk"])
         action = self.kwargs["action"]
 
-        from .modules import docker_control
         client = docker_control.Client(channel)
 
-        if client.is_connected:
+        if client.connected:
 
             if action == "start":
                 client.start_channel()
