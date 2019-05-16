@@ -15,13 +15,23 @@
     <div id="container">
         <div id="channel-list">
             {% for channel in channels  %}
-            <div class="channel-entry"
-                data-video-url="http://{{ channel.server.address }}:30000/stream/{{ channel }}/live.m3u8">
-                <span><img class="channel-logo" src="{{channel.logo.url}}" /></span>
-                <span class="channel-name">
-                    {{ channel }}
-                </span>
-            </div>
+                {% if request.META.HTTP_HOST == 'localhost:8000' %}
+                    <div class="channel-entry"
+                        data-video-url="http://{{ channel.server.address }}:30000/stream/{{ channel }}/live.m3u8">
+                        <span><img class="channel-logo" src="{{channel.logo.url}}" /></span>
+                        <span class="channel-name">
+                            {{ channel }}
+                        </span>
+                    </div>
+                {% else %}
+                    <div class="channel-entry"
+                        data-video-url="http://{{ request.META.HTTP_HOST }}/stream/{{ channel }}/live.m3u8">
+                        <span><img class="channel-logo" src="{{channel.logo.url}}" /></span>
+                        <span class="channel-name">
+                            {{ channel }}
+                        </span>
+                    </div>
+                {% endif %}
             {% endfor %}
         </div>
 
