@@ -4,6 +4,7 @@
 
 body {
     font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    overflow-wrap: break-word;
 }
 
 .row {
@@ -27,4 +28,13 @@ body {
 
 .logo {
     width: 5em;
+}
+
+a {
+    color:steelblue;
+}
+
+.container-logs {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.8em;
 }

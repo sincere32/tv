@@ -14,35 +14,43 @@
         {% if channels %}
         {% for channel in channels %}
         <div class="row">
-            <div class="col">
+            <div class="col is-marginless">
                 <div id="channel-{{ channel.pk }}" class="card server-card is-full-width">
                     <b><a href="{{ channel.pk }}/">{{ channel }}</a></b>
                     <div class="row">
-                        <div class="col-1">
+                        <div class="col-1 is-marginless">
                             <img class="logo" src="{{ channel.logo }}">
                         </div>
-                        <div class="col-4">
-                            Source: <a href="{{ channel.source }}" target="_blank"> {{ channel.source }}</a> <br>
+                        <div class="col-6">
+                            Source: <a href="{{ channel.source }}" target="_blank"> {{ channel.source }}</a><br>
                             Source Type: {{ channel.source_type }}<br>
                             Codec Options: <i>{{ channel.get_codec_display }}</i><br>
-                        </div>
-                        <div class="col-2">
-                            Current Server: <a href="/control/servers/{{ channel.server.pk }}">
-                                {{ channel.server }}</a><br>
+                            Current Server: <a
+                                href="/control/servers/{{ channel.server.pk }}">{{ channel.server }}</a><br>
                             Current Status:
-                            {{ channel.container.status|title }}<br>
+                            {% if channel.container.status|title == "Running" %}
+                            <span class="text-success">
+                                {{ channel.container.status|title }}
+                            </span><br>
+                            {% endif %}
+                            {% if channel.container.status|title == "Exited" %}
+                            <span class="text-error">
+                                {{ channel.container.status|title }}
+                            </span>
+                            <br>
+                            <span class="container-logs">{{ channel.container.logs }}</span>
+                            {% endif %}
                         </div>
                         <div class="col is-full-width is-right">
                             {% if channel.container.status != "running" %}
-                            <a href="{{ channel.pk }}/start" class="button primary outline button-small">Start</a>
+                            <a href="{{ channel.pk }}/start" class="button success button-small">Start</a>
                             {% else %}
-                            <a href="{{ channel.pk }}/restart" class="button primary outline button-small">Restart</a>
-                            <a href="{{ channel.pk }}/stop" class="button primary outline button-small">Stop</a>
+                            <a href="{{ channel.pk }}/restart" class="button primary button-small">Restart</a>
+                            <a href="{{ channel.pk }}/stop" class="button error button-small">Stop</a>
                             {% endif %}
                             <a href="{{ channel.pk }}/test" class="button dark outline button-small">Test</a>
-                            <a href="{{ channel.pk }}" class="button primary button-small">Edit</a>
-                            <a href="{{ channel.pk }}/recreate"
-                                class="button primary outline button-small">Re-create</a>
+                            <a href="{{ channel.pk }}" class="button primary outline button-small">Edit</a>
+                            <a href="{{ channel.pk }}/recreate" class="button primary outline button-small">Rebuild</a>
                             <a href="{{ channel.pk }}/delete" class="button error button-small">Delete</a>
                         </div>
                     </div>
