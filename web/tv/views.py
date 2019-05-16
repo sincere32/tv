@@ -195,7 +195,7 @@ class ChannelsDelete(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         channel = get_object_or_404(Channel, pk=self.kwargs['pk'])
         client = docker_control.Client(channel)
-        client.delete_channel():
+        client.delete_channel()
         channel.delete()
         return redirect(to="/control/channels/")
 
