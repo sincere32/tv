@@ -35,6 +35,7 @@ class Channel(models.Model):
         max_length=128, default='copy', choices=CODEC_CHOICES)
     logo = models.ImageField(upload_to="logos", null=True)
     server = models.ForeignKey(Server, on_delete=models.PROTECT)
+    container_id = models.CharField(max_length=128,blank=True,null=True)
 
     def __str__(self):
         return self.name

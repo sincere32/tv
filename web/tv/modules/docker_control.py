@@ -1,5 +1,6 @@
 import docker
 
+
 class Client():
 
     @property
@@ -10,7 +11,9 @@ class Client():
 
         self.__channel = channel
         self.__channel.name = self.__channel.name.replace(" ", "-")
-        self.__container_name = "tv-"+self.__channel.name
+        self.__container_name = "tv-" + \
+            str(self.__channel.pk)+"-"+self.__channel.name
+        self.__container_id = self.__channel.container_id
         docker_url = "http://"+channel.server.address+":"+channel.server.api_port
         try:
             self.__client = docker.DockerClient(base_url=docker_url)
@@ -19,7 +22,15 @@ class Client():
             self.__client = False
             self.__connected = False
 
+    def get_container(self):
+        try:
+            container = self.__client.containers.get(self.__container_id)
+            return container
+        except:
+            return False
+
     def start_channel(self):
+
         container_environment = {
         }
         container_environment["NAME"] = self.__channel
@@ -37,11 +48,12 @@ class Client():
         else:
             container_environment['INPUT'] = self.__channel.source
 
-        restart_policy = {"Name": "always"}
-        
+        restart_policy = {"Name": "on-failure", "MaximumRetryCount": 5}
+
         try:
-            container = self.__client.containers.get(self.__container_name)
-            container.remove(force=True)
+            container = get_container(self.__container_id)
+            if container:
+                container.remove(force=True)
         except:
             try:
                 container = self.__client.containers.run(
@@ -52,6 +64,8 @@ class Client():
                     environment=container_environment,
                     volumes=container_volume,
                 )
+                self.__channel.container_id = container.id
+                self.__channel.save()
             except:
                 container = False
 
@@ -59,25 +73,22 @@ class Client():
 
     def stop_channel(self):
         try:
-            container = self.__client.containers.get(self.__container_name)
-            container.stop()
-            return True
-        except:
-            return False
-
-    def get_container(self):
-        try:
-            container = self.__client.containers.get("tv-"+self.__channel.name)
-            return container
+            container = get_container(self.__container_id)
+            if container:
+                container.stop()
+                self.__channel.container_id = None
+                self.__channel.save()
+                return True
         except:
             return False
 
     def recreate_channel(self):
         try:
-            container = self.__client.containers.get("tv-"+self.__channel.name)
-            container.remove(force=True)
-            self.start_channel()
-            return True
+            container = get_container(self.__container_id)
+            if container:
+                container.remove(force=True)
+                self.start_channel()
+                return True
         except:
             self.start_channel()
             return False
