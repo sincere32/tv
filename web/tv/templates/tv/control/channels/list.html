@@ -38,7 +38,12 @@
                                 {{ channel.container.status|title }}
                             </span>
                             <br>
-                            <span class="container-logs">{{ channel.container.logs }}</span>
+                            {% endif %}
+                            {% if not channel.container.status %}
+                            <span class="text-error">
+                                Not Found
+                            </span>
+                            <br>
                             {% endif %}
                         </div>
                         <div class="col is-full-width is-right">

@@ -50,27 +50,22 @@ class Client():
         restart_policy = {"Name": "on-failure", "MaximumRetryCount": 5}
 
         try:
-            container = get_container(self.__container_name)
-            if container:
-                container.remove(force=True)
+            container = self.__client.containers.run(
+                detach=True,
+                name=self.__container_name,
+                image='tv/reflector',
+                restart_policy=restart_policy,
+                environment=container_environment,
+                volumes=container_volume,
+            )
         except:
-            try:
-                container = self.__client.containers.run(
-                    detach=True,
-                    name=self.__container_name,
-                    image='tv/reflector',
-                    restart_policy=restart_policy,
-                    environment=container_environment,
-                    volumes=container_volume,
-                )
-            except:
-                container = False
+            container = False
 
         return container
 
     def stop_channel(self):
         try:
-            container = get_container(self.__container_name)
+            container = self.get_container()
             if container:
                 container.stop()
                 return True
@@ -79,11 +74,10 @@ class Client():
 
     def recreate_channel(self):
         try:
-            container = get_container(self.__container_name)
+            container = self.get_container()
             if container:
                 container.remove(force=True)
-                self.start_channel()
-                return True
+            container = self.start_channel()
         except:
-            self.start_channel()
-            return False
+            container = self.start_channel()
+        return container
