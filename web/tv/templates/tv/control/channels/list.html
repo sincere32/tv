@@ -19,7 +19,7 @@
                     <b><a href="{{ channel.pk }}/">{{ channel }}</a></b>
                     <div class="row">
                         <div class="col-1">
-                            <img class="logo" src="{{ channel.logo.url }}">
+                            <img class="logo" src="{{ channel.logo }}">
                         </div>
                         <div class="col-4">
                             Source: <a href="{{ channel.source }}" target="_blank"> {{ channel.source }}</a> <br>
@@ -29,8 +29,8 @@
                         <div class="col-2">
                             Current Server: <a href="/control/servers/{{ channel.server.pk }}">
                                 {{ channel.server }}</a><br>
-                            Current Status: 
-                                {{ channel.container.status|title }}<br>
+                            Current Status:
+                            {{ channel.container.status|title }}<br>
                         </div>
                         <div class="col is-full-width is-right">
                             {% if channel.container.status != "running" %}
@@ -41,7 +41,8 @@
                             {% endif %}
                             <a href="{{ channel.pk }}/test" class="button dark outline button-small">Test</a>
                             <a href="{{ channel.pk }}" class="button primary button-small">Edit</a>
-                            <a href="{{ channel.pk }}/recreate" class="button primary outline button-small">Re-create</a>
+                            <a href="{{ channel.pk }}/recreate"
+                                class="button primary outline button-small">Re-create</a>
                             <a href="{{ channel.pk }}/delete" class="button error button-small">Delete</a>
                         </div>
                     </div>

@@ -6,7 +6,7 @@ from .models import Server, Channel
 
 class Live(View):
     def get(self, request, *args, **kwargs):
-        channels = Channel.objects.all()
+        channels = Channel.objects.all().order_by('name')
         context = {
             "channels": channels,
         }
@@ -113,8 +113,7 @@ class ServersTest(LoginRequiredMixin, View):
 
 class ChannelsList(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
-        channels = Channel.objects.all()
-
+        channels = Channel.objects.all().order_by('name')
         from .modules import docker_control
         for channel in channels:
             client = docker_control.Client(channel)
@@ -166,6 +165,7 @@ class ChannelsEdit(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         from .forms import ChannelForm
         channel = get_object_or_404(Channel, pk=self.kwargs["pk"])
+
         form = ChannelForm(request.POST, request.FILES, instance=channel)
 
         if form.is_valid():
