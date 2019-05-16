@@ -166,10 +166,12 @@ class ChannelsEdit(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         from .forms import ChannelForm
         channel = get_object_or_404(Channel, pk=self.kwargs["pk"])
-
+        client = docker_control.Client(channel)
+ 
         form = ChannelForm(request.POST, request.FILES, instance=channel)
 
         if form.is_valid():
+            client.rename_channel(name=form.data['name'])
             form.save()
             return redirect(to="../")
         else:
@@ -192,7 +194,9 @@ class ChannelsDelete(LoginRequiredMixin, View):
 
     def post(self, request, *args, **kwargs):
         channel = get_object_or_404(Channel, pk=self.kwargs['pk'])
-        channel.delete()
+        client = docker_control.Client(channel)
+        if client.delete_channel():
+            channel.delete()
         return redirect(to="/control/channels/")
 
 

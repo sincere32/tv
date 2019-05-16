@@ -37,7 +37,8 @@ class Client():
             container = self.__client.containers.get(self.__container_name)
             return container
         except docker.errors.NotFound as ex:
-            return ex
+            self.__error = ex
+            return False
 
     def start_channel(self):
 
@@ -90,7 +91,20 @@ class Client():
         try:
             container = self.get_container()
             if container:
+                container.stop()
                 container.remove()
+                return True
+        except docker.errors.APIError as ex:
+            self.__error = ex
+            return False
+
+    def rename_channel(self, name):
+        try:
+            container = self.get_container()
+            if container:
+                name = name.replace(" ", "-")
+                name = "tv-" + str(self.__channel.pk)+"-"+name
+                container.rename(name)
                 return True
         except docker.errors.APIError as ex:
             self.__error = ex
@@ -99,7 +113,7 @@ class Client():
     def recreate_channel(self):
         try:
             container = self.get_container()
-            if container == True:
+            if container:
                 container.remove(force=True)
             container = self.start_channel()
         except:
