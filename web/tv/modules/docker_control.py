@@ -13,7 +13,6 @@ class Client():
         self.__channel.name = self.__channel.name.replace(" ", "-")
         self.__container_name = "tv-" + \
             str(self.__channel.pk)+"-"+self.__channel.name
-        self.__container_id = self.__channel.container_id
         docker_url = "http://"+channel.server.address+":"+channel.server.api_port
         try:
             self.__client = docker.DockerClient(base_url=docker_url)
@@ -24,7 +23,7 @@ class Client():
 
     def get_container(self):
         try:
-            container = self.__client.containers.get(self.__container_id)
+            container = self.__client.containers.get(self.__container_name)
             return container
         except:
             return False
@@ -51,7 +50,7 @@ class Client():
         restart_policy = {"Name": "on-failure", "MaximumRetryCount": 5}
 
         try:
-            container = get_container(self.__container_id)
+            container = get_container(self.__container_name)
             if container:
                 container.remove(force=True)
         except:
@@ -71,7 +70,7 @@ class Client():
 
     def stop_channel(self):
         try:
-            container = get_container(self.__container_id)
+            container = get_container(self.__container_name)
             if container:
                 container.stop()
                 return True
@@ -80,7 +79,7 @@ class Client():
 
     def recreate_channel(self):
         try:
-            container = get_container(self.__container_id)
+            container = get_container(self.__container_name)
             if container:
                 container.remove(force=True)
                 self.start_channel()
