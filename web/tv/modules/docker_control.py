@@ -60,7 +60,7 @@ class Client():
             }
         }
 
-        restart_policy = {"Name": "on-failure", "MaximumRetryCount": 5}
+        restart_policy = {"Name": "always"}
 
         try:
             container = self.__client.containers.run(
