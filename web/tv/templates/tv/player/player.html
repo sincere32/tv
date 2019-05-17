@@ -4,8 +4,7 @@
 <head>
     <link href="https://vjs.zencdn.net/7.5.4/video-js.css" rel="stylesheet">
     <script src='https://vjs.zencdn.net/7.5.4/video.js'></script>
-    <script src="https://code.jquery.com/jquery-3.4.0.min.js"
-        integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+    <script src="{% static 'player/js/jquery-3.4.0.min.js' %}"></script>
     <link href="{% static 'player/css/player.css' %}" rel="stylesheet">
     <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
 </head>
@@ -20,7 +19,7 @@
                     data-video-url="http://{{ channel.server.address }}:30000/stream/{{ channel }}/live.m3u8">
                     <span><img class="channel-logo" src="{{channel.logo.url}}" /></span>
                     <span class="channel-name">
-                        {{ channel }}
+                        {{ channel.name }}
                     </span>
                 </div>
             {% else %}
