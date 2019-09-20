@@ -14,6 +14,7 @@ echo ""
 echo ""
 
 /usr/bin/ffmpeg \
+	-err_detect ignore_err \
 	-re \
 	-i ${INPUT} \
 	-bufsize 5000k \
