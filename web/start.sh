@@ -1,6 +1,5 @@
 #!/bin/sh
-django-admin createsuperuser --noinput --username admin
-python manage.py collectstatic --noinput
+python manage.py createsuperuser --username admin --password admin --email foo@foo.foo
 python manage.py collectstatic --noinput
 python manage.py makemigrations
 python manage.py migrate
