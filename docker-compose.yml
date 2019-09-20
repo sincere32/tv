@@ -33,5 +33,7 @@ services:
 networks:
   tv:
 volumes:
+  - tv-web-media
+  - tv-database
   tv-streams:
     external: true
