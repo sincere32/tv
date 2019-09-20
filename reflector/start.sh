@@ -19,7 +19,7 @@ echo ""
 	-i ${INPUT} \
 	-bufsize 5000k \
 	-vcodec ${VCODEC} \
-	-acodec aac \
+	-acodec mp3 \
 	-hls_flags delete_segments \
 	/stream/${NAME}/live.m3u8
 
