@@ -1,7 +1,6 @@
 pillow
 docker
-djangorestframework
-django-filter
+django-createsuperuser
 django-debug-toolbar
 psycopg2
 gunicorn
