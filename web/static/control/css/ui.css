@@ -1,0 +1,40 @@
+:root {
+    --grid-maxWidth: 100%;
+}
+
+body {
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    overflow-wrap: break-word;
+}
+
+.row {
+    margin: 0;
+}
+
+.container {
+    margin: 0;
+    padding-left: 20;
+    padding-left: 20;
+    width: 100%;
+    border-top: 1px gray solid;
+}
+
+.server-card {
+    margin-bottom: 1em;
+}
+.button-small {
+    font-size: 80%;
+}
+
+.logo {
+    width: 5em;
+}
+
+a {
+    color:steelblue;
+}
+
+.container-logs {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.8em;
+}

@@ -70,6 +70,7 @@ class Client():
                 restart_policy=restart_policy,
                 environment=container_environment,
                 volumes=container_volume,
+                network_mode='host'
             )
         except docker.errors.APIError as ex:
             self.__error = ex
