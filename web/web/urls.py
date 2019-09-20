@@ -18,7 +18,6 @@ urlpatterns = [
     path('logout/', LogoutView.as_view()),
     path('admin/', admin.site.urls),
     path('control/', include('tv.urls')),
-    re_path(r'^api-auth/', include('rest_framework.urls')),
 ]
 
 urlpatterns += static(settings.STATIC_URL,
