@@ -11,10 +11,9 @@ $(document).ready(function () {
     function hide_menu() {
         is_menu_moving = true;
         var width = menu_width();
-        $("#channel-list").css("left", - menu_width)
-        $("#channel-list").animate(
-            {
-                "left": - width
+        $("#channel-list").css("left", -menu_width)
+        $("#channel-list").animate({
+                "left": -width
             },
             100,
             function () {
@@ -25,8 +24,7 @@ $(document).ready(function () {
 
     function show_menu() {
         is_menu_moving = true;
-        $("#channel-list").animate(
-            {
+        $("#channel-list").animate({
                 "left": 0
             },
             100,
@@ -53,12 +51,13 @@ $(document).ready(function () {
     hide_menu();
 
     $(".channel-entry").on("click", function () {
-        var video = videojs('player');
         var url = $(this).data("video-url").replace(/ /g, "-");
         console.log(url);
-        video.src(url);
-        video.play();
+        player = videojs("player");
+        player.src({
+            type: 'application/x-mpegURL',
+            src: url
+        });
     });
-
 
 });
