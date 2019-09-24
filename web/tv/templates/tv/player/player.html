@@ -9,8 +9,6 @@
     <link href="{% static 'player/css/video-js.min.css' %}" rel="stylesheet">
     <script src="{% static 'player/js/video.min.js' %}"></script>
     -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.6.5/video-js.min.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.6.5/video.min.js"></script>
 </head>
 
 <body>
@@ -40,7 +38,9 @@
 
         <video id='player' class='video-js' preload='auto' autoplay>
         </video>
-
+        
+        <script src="https://cdn.jwplayer.com/libraries/6X0Qlnte.js"></script>
+        
     </div>
 
     <script src="{% static 'player/js/ui.js' %}"></script>

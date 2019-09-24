@@ -53,10 +53,9 @@ $(document).ready(function () {
     $(".channel-entry").on("click", function () {
         var url = $(this).data("video-url").replace(/ /g, "-");
         console.log(url);
-        player = videojs("player");
-        player.src({
-            type: 'application/x-mpegURL',
-            src: url
+        player = jwplayer("player");
+        player.setup({
+            "file": url
         });
     });
 
