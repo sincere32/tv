@@ -221,5 +221,7 @@ class ChannelsControl(LoginRequiredMixin, View):
                 client.start_channel()
             if action == "recreate":
                 client.recreate_channel()
+            if action == "stats":
+                stats = client.get_stats()
 
         return redirect(to="/control/channels/")

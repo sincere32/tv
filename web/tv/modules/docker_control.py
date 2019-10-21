@@ -45,11 +45,12 @@ class Client():
         container_environment = {
         }
 
+        reflector_image = 'tv/reflector'
+        
         if self.__channel.source_type == 'YouTube':
-            container_environment['YOUTUBE_DL'] = self.__channel.source
-        else:
-            container_environment['INPUT'] = self.__channel.source
+            reflector_image = 'tv/reflector-youtube_dl'
 
+        container_environment['INPUT'] = self.__channel.source
         container_environment["NAME"] = self.__channel
         container_environment['VCODEC'] = self.__channel.codec
 
@@ -66,7 +67,7 @@ class Client():
             container = self.__client.containers.run(
                 detach=True,
                 name=self.__container_name,
-                image='tv/reflector',
+                image=reflector_image,
                 restart_policy=restart_policy,
                 environment=container_environment,
                 volumes=container_volume,
@@ -120,3 +121,12 @@ class Client():
         except:
             container = self.start_channel()
         return container
+
+    def get_stats(self):
+        container = self.get_container()
+        try:
+            stats = container.stats()
+        except docker.errors.APIError as ex:
+            self.__error = ex
+            return False
+        return stats
