@@ -10,8 +10,8 @@
             <h4>Delete channel {{ channel }}</h4>
             <form id="form" method="post">
                 {% csrf_token %}
-                <a href="#" class="button primary" onclick="$('#form').submit();">Yes</a>
-                <a href="{{ request.META.HTTP_REFERER }}" class="button dark">Cancel</a>
+                <input type="submit" value="Yes" class="button primary">
+                <input type="button" value="Cancel" onClick="location='{{ request.META.HTTP_REFERER }}'" class="button dark">
             </form>
         </div>
     </div>

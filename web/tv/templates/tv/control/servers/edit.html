@@ -10,9 +10,9 @@
             <form id="form" method="post" action="">
                 {% csrf_token %}
                 {{form.as_p}}
-                <a href="#" class="button primary" onclick="$('#form').submit();">Save</a>
-                <a href="delete/" class="button error">Delete</a>
-                <a href="../" class="button dark">Cancel</a>
+                <input type="submit" value="Save" class="button">
+                <input type="button" value="Delete" onClick="location='delete'" class="button error">
+                <input type="button" value="Cancel" onClick="location='../'" class="button dark">
             </form>
         </div>
     </div>

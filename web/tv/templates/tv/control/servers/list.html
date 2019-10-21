@@ -1,46 +1,41 @@
 {% extends "tv/control/base.html" %}
 
 {% block content %}
-<div class="row">
-    <div class="col">
-        <div class="col">
-            <h3>Servers</h3>
-        </div>
+<div class="row is-vertical-align">
+    <div class="col-3">
+        <h3>Servers</h3>
+    </div>
+    <div class="col-3 is-right">
+        <input type="button" value="Add server ..." onClick="location='new'" class="button primary">
     </div>
 </div>
 
-<div class="row">
-    <div class="col-9">
-        {% if servers %}
-        {% for server in servers %}
-        <div class="row ">
-            <div class="col">
-                <div id="server-{{ server.pk }}" class="card server-card is-full-width">
-                    <b><a href="{{ server.pk }}/">{{ server }}</a></b>
-                    <div class="row">
-                        <div class="col is-marginless">
-                            IP Address: {{ server.address }}
-                            <br>
-                            API: <a
-                                href="http://{{ server.address }}:{{ server.api_port  }}">http://{{ server.address }}:{{ server.api_port }}</a>
-                        </div>
-                        <div class="col is-right">
-                            <a href="{{ server.pk }}/test" class="button dark outline button-small">Test</a>
-                            <a href="{{ server.pk }}" class="button primary button-small">Edit</a>
-                            <a href="{{ server.pk }}/delete" class="button error button-small">Delete</a>
-                        </div>
-                    </div>
+{% if servers %}
+{% for server in servers %}
+<div class="row ">
+    <div class="col-6">
+        <div id="server-{{ server.pk }}" class="card server-card is-full-width">
+            <b><a href="{{ server.pk }}/">{{ server }}</a></b>
+            <div class="row">
+                <div class="col is-marginless">
+                    IP Address: {{ server.address }}
+                    <br>
+                    API: <a
+                        href="http://{{ server.address }}:{{ server.api_port  }}">http://{{ server.address }}:{{ server.api_port }}</a>
+                </div>
+                <div class="col is-right">
+                    <input type="button" value="Test" onClick="location='{{ server.pk }}/test'"
+                        class="button dark outline button-small">
+                    <input type="button" value="Edit" onClick="location='{{ server.pk }}'"
+                        class="button primary button-small">
+                    <input type="button" value="Delete" onClick="location='{{ server.pk }}/delete'" class="button error button-small">
                 </div>
             </div>
         </div>
-        {% endfor %}
-        {% endif %}
-    </div>
-
-    <div class="col-3">
-        <a class="button primary" href="new/">Add server ...</a>
     </div>
 </div>
+{% endfor %}
+{% endif %}
 </div>
 
 {% endblock content %}

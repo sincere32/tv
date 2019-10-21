@@ -14,9 +14,12 @@ from tv.views import Live
 
 urlpatterns = [
     path('', Live.as_view()),
+    path('login', LoginView.as_view(template_name='tv/control/login/login.html')),
     path('login/', LoginView.as_view(template_name='tv/control/login/login.html')),
+    path('logout', LogoutView.as_view()),
     path('logout/', LogoutView.as_view()),
     path('admin/', admin.site.urls),
+    path('control', include('tv.urls')),
     path('control/', include('tv.urls')),
 ]
 

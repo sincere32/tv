@@ -36,7 +36,7 @@ class Client():
         try:
             container = self.__client.containers.get(self.__container_name)
             return container
-        except docker.errors.NotFound as ex:
+        except docker.errors.APIError as ex:
             self.__error = ex
             return False
 

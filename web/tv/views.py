@@ -117,8 +117,11 @@ class ChannelsList(LoginRequiredMixin, View):
         channels = Channel.objects.all().order_by('name')
         from .modules import docker_control
         for channel in channels:
-            client = docker_control.Client(channel)
-            channel.container = client.get_container()
+            try:
+                client = docker_control.Client(channel)
+                channel.container = client.get_container()
+            except:
+                channel.container = "Not found !"
         context = {
             "channels": channels,
         }
@@ -167,7 +170,7 @@ class ChannelsEdit(LoginRequiredMixin, View):
         from .forms import ChannelForm
         channel = get_object_or_404(Channel, pk=self.kwargs["pk"])
         client = docker_control.Client(channel)
- 
+
         form = ChannelForm(request.POST, request.FILES, instance=channel)
 
         if form.is_valid():

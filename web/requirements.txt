@@ -1,6 +1,6 @@
 pillow
 docker
-django-createsuperuser
+django-bootstrap
 django-debug-toolbar
 psycopg2
 gunicorn

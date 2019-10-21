@@ -9,9 +9,9 @@
         <div class="card is-full-width">
             <form id="form" method="post" action="" enctype="multipart/form-data">
                 {% csrf_token %}
-                {{form.as_p}}
-                <a href="#" class="button primary" onclick="$('#form').submit();">Login</a>
-                <a href="../" class="button dark">Cancel</a></form>
+                {{form}}
+                <p></p>
+                <input type="submit" value="Login"></a>
         </div>
     </div>
 </div>

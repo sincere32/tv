@@ -1,75 +1,90 @@
 {% extends "tv/control/base.html" %}
 
 {% block content %}
-<div class="row">
-    <div class="col">
-        <div class="col">
-            <h3>Channels</h3>
-        </div>
+
+<div class="row is-vertical-align">
+    <div class="col-3">
+        <h3>Channels</h3>
+    </div>
+    <div class="col-3 is-right">
+        <input type="button" value="Add channel ..." onClick="location='new'" class="button primary">
     </div>
 </div>
 
+{% if channels %}
+{% for channel in channels %}
 <div class="row">
-    <div class="col-10">
-        {% if channels %}
-        {% for channel in channels %}
-        <div class="row">
-            <div class="col is-marginless">
-                <div id="channel-{{ channel.pk }}" class="card server-card is-full-width">
-                    <b><a href="{{ channel.pk }}/">{{ channel }}</a></b>
-                    <div class="row">
-                        <div class="col-1 is-marginless">
-                            <img class="logo" src="{{ channel.logo.url }}">
-                        </div>
-                        <div class="col-6">
-                            Source: <a href="{{ channel.source }}" target="_blank"> {{ channel.source }}</a><br>
-                            Source Type: {{ channel.source_type }}<br>
-                            Codec Options: <i>{{ channel.get_codec_display }}</i><br>
-                            Current Server: <a
-                                href="/control/servers/{{ channel.server.pk }}">{{ channel.server }}</a><br>
-                            Current Status:
-                            {% if channel.container.status|title == "Running" %}
-                            <span class="text-success">
-                                {{ channel.container.status|title }}
-                            </span><br>
-                            {% endif %}
-                            {% if channel.container.status|title == "Exited" %}
-                            <span class="text-error">
-                                {{ channel.container.status|title }}
-                            </span>
-                            <br>
-                            {% endif %}
-                            {% if not channel.container.status %}
-                            <span class="text-error">
-                                Not Found
-                            </span>
-                            <br>
-                            {% endif %}
-                        </div>
-                        <div class="col is-full-width is-right">
-                            {% if channel.container.status != "running" %}
-                            <a href="{{ channel.pk }}/start" class="button success button-small">Start</a>
-                            {% else %}
-                            <a href="{{ channel.pk }}/restart" class="button primary button-small">Restart</a>
-                            <a href="{{ channel.pk }}/stop" class="button error button-small">Stop</a>
-                            {% endif %}
-                            <a href="{{ channel.pk }}/test" class="button dark outline button-small">Test</a>
-                            <a href="{{ channel.pk }}" class="button primary outline button-small">Edit</a>
-                            <a href="{{ channel.pk }}/recreate" class="button primary outline button-small">Rebuild</a>
-                            <a href="{{ channel.pk }}/delete" class="button error button-small">Delete</a>
-                        </div>
-                    </div>
+    <div class="col-6 is-marginless">
+        <div id="channel-{{ channel.pk }}" class="card server-card is-full-width">
+            <b><a href="{{ channel.pk }}/">{{ channel }}</a></b>
+            <hr>
+            <div class="row">
+                <div class="col is-marginless">
+                    <table>
+                        <tr>
+                            <td>Source</td>
+                            <td><a href="{{ channel.source }}" target="_blank">{{ channel.source }}</a></td>
+                        </tr>
+                        <tr>
+                            <td>Source Type</td>
+                            <td>{{ channel.source_type }}</a></td>
+                        </tr>
+                        <tr>
+                            <td>Codec Options</td>
+                            <td>{{ channel.get_codec_display }}</a></td>
+                        </tr>
+                        <tr>
+                            <td>Server</td>
+                            <td><a href="/control/servers/{{ channel.server.pk }}">{{ channel.server }}</a></td>
+                        </tr>
+                        <tr>
+                            <td>Status</td>
+                            <td>
+                                {% if channel.container.status|title == "Running" %}
+                                <span class="text-success">
+                                    {{ channel.container.status|title }}
+                                </span><br>
+                                {% endif %}
+                                {% if channel.container.status|title == "Exited" %}
+                                <span class="text-error">
+                                    {{ channel.container.status|title }}
+                                </span>
+                                <br>
+                                {% endif %}
+                                {% if not channel.container.status %}
+                                <span class="text-error">
+                                    Not Found
+                                </span>
+                                <br>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-1 is-marginless">
+                    <img class="logo" src="{{ channel.logo.url }}">
                 </div>
             </div>
+            <div class="col is-full-width is-right">
+                {% if channel.container.status != "running" %}
+                <input type="button" value="Start" onClick="location='{{ channel.pk }}/start'" class="button success">
+                {% else %}
+                <input type="button" value="Restart" onClick="location='{{ channel.pk }}/restart'"
+                    class="button primary">
+                <input type="button" value="Stop" onClick="location='{{ channel.pk }}/stop'" class="button error">
+                <input type="button" value="Test" onClick="location='{{ channel.pk }}/test'" class="button dark">
+                {% endif %}
+                <input type="button" value="Edit" onClick="location='{{ channel.pk }}/edit'"
+                    class="button primary outline">
+                <input type="button" value="Rebuild" onClick="location='{{ channel.pk }}/rebuild'"
+                    class="button primary">
+                <input type="button" value="Delete" onClick="location='{{ channel.pk }}/delete'" class="button error">
+            </div>
         </div>
-        {% endfor %}
-        {% endif %}
-    </div>
-
-    <div class="col-1">
-        <a class="button primary" href="new/">Add channel ...</a>
     </div>
 </div>
 </div>
+{% endfor %}
+{% endif %}
 
 {% endblock content %}

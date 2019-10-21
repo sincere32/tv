@@ -10,8 +10,8 @@
             <form id="form" method="post" action="">
                 {% csrf_token %}
                 {{form.as_p}}
-                <a href="#" class="button primary" onclick="$('#form').submit();">Save</a>
-                <a href="../" class="button dark">Cancel</a></form>
+                <input type="submit" value="Add" class="button primary">
+                <input type="button" value="Cancel" onClick="location='{{ request.META.HTTP_REFERER }}'" class="button dark">
         </div>
     </div>
 </div>
