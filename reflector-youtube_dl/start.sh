@@ -3,10 +3,8 @@ mkdir -p /stream/${NAME}
 
 echo "URI is " ${INPUT}
 
-if ! [ -z $YOUTUBE_DL ]; then
-	echo "Using youtube-dl extractor for " ${YOUTUBE_DL}
-	INPUT=$(youtube-dl -g $YOUTUBE_DL)
-fi
+echo "Using youtube-dl extractor for " ${INPUT}
+INPUT=$(youtube-dl -g $INPUT)
 
 echo "Starting FFMPEG ..."
 echo "Codec options are :"
