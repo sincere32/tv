@@ -67,18 +67,18 @@
             </div>
             <div class="col is-full-width is-right">
                 {% if channel.container.status != "running" %}
-                <input type="button" value="Start" onClick="location='{{ channel.pk }}/start'" class="button success">
+                <input type="button" value="Start" onClick="location='./{{ channel.pk }}/start'" class="button success">
                 {% else %}
-                <input type="button" value="Restart" onClick="location='{{ channel.pk }}/restart'"
+                <input type="button" value="Restart" onClick="location='./{{ channel.pk }}/restart'"
                     class="button primary">
-                <input type="button" value="Stop" onClick="location='{{ channel.pk }}/stop'" class="button error">
-                <input type="button" value="Test" onClick="location='{{ channel.pk }}/test'" class="button dark">
+                <input type="button" value="Stop" onClick="location='./{{ channel.pk }}/stop'" class="button error">
+                <input type="button" value="Test" onClick="location='./{{ channel.pk }}/test'" class="button dark">
                 {% endif %}
-                <input type="button" value="Edit" onClick="location='{{ channel.pk }}'"
+                <input type="button" value="Edit" onClick="location='./{{ channel.pk }}'"
                     class="button primary outline">
-                <input type="button" value="Rebuild" onClick="location='{{ channel.pk }}/recreate'"
+                <input type="button" value="Rebuild" onClick="location='./{{ channel.pk }}/recreate'"
                     class="button primary">
-                <input type="button" value="Delete" onClick="location='{{ channel.pk }}/delete'" class="button error">
+                <input type="button" value="Delete" onClick="location='./{{ channel.pk }}/delete'" class="button error">
             </div>
         </div>
     </div>
