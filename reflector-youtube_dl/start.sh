@@ -2,6 +2,12 @@ rm -rf /stream/${NAME}
 mkdir -p /stream/${NAME}
 
 echo "URI is " ${INPUT}
+
+if ! [ -z $YOUTUBE_DL ]; then
+	echo "Using youtube-dl extractor for " ${YOUTUBE_DL}
+	INPUT=$(youtube-dl -g $YOUTUBE_DL)
+fi
+
 echo "Starting FFMPEG ..."
 echo "Codec options are :"
 echo ${VCODEC}
