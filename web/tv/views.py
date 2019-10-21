@@ -217,8 +217,7 @@ class ChannelsControl(LoginRequiredMixin, View):
             if action == "stop":
                 client.stop_channel()
             if action == "restart":
-                client.stop_channel()
-                client.start_channel()
+                client.restart_channel()
             if action == "recreate":
                 client.recreate_channel()
             if action == "stats":

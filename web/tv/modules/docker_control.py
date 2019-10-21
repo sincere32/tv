@@ -45,11 +45,6 @@ class Client():
         container_environment = {
         }
 
-        reflector_image = 'tv/reflector'
-        
-        if self.__channel.source_type == 'YouTube':
-            reflector_image = 'tv/reflector-youtube_dl'
-
         container_environment['INPUT'] = self.__channel.source
         container_environment["NAME"] = self.__channel
         container_environment['VCODEC'] = self.__channel.codec
@@ -62,6 +57,18 @@ class Client():
         }
 
         restart_policy = {"Name": "always"}
+
+        reflector_image = 'tv/reflector'
+
+        if self.__channel.source_type == 'YouTube':
+            reflector_image = 'tv/reflector-youtube_dl'
+        try:
+            container = self.get_container()
+            container.start()
+            return container
+        except docker.errors.APIError as ex:
+            self.__error = ex
+            container = False
 
         try:
             container = self.__client.containers.run(
@@ -103,11 +110,10 @@ class Client():
     def rename_channel(self, name):
         try:
             container = self.get_container()
-            if container:
-                name = name.replace(" ", "-")
-                name = "tv-" + str(self.__channel.pk)+"-"+name
-                container.rename(name)
-                return True
+            name = name.replace(" ", "-")
+            name = "tv-" + str(self.__channel.pk)+"-"+name
+            container.rename(name)
+            return True
         except docker.errors.APIError as ex:
             self.__error = ex
             return False
@@ -120,7 +126,16 @@ class Client():
             container = self.start_channel()
         except:
             container = self.start_channel()
+
         return container
+
+    def restart_channel(self):
+        try:
+            container = self.get_container()
+            container.restart()
+        except docker.errors.APIError as ex:
+            self.__error = ex
+            return False
 
     def get_stats(self):
         container = self.get_container()
