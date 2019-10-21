@@ -1,6 +1,5 @@
 pillow
 docker
-django-bootstrap
 django-debug-toolbar
 psycopg2
 gunicorn
