@@ -68,7 +68,6 @@ class Client():
             return container
         except docker.errors.APIError as ex:
             self.__error = ex
-            container = False
 
         try:
             container = self.__client.containers.run(
